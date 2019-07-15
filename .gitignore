@@ -1,0 +1,6 @@
+VendingMachine/bin/
+VendingMachine.Tests/bin/
+VendingMachine.Tests/obj/
+VendingMachine/obj/
+packages/
+.vs/
