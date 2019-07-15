@@ -17,22 +17,13 @@ namespace VendingMachine.Controllers
         // GET: Drinks
         public ActionResult Index()
         {
-            return View(db.Drinks.ToList());
-        }
+            String view = "Index";
 
-        // GET: Drinks/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (Request.QueryString.ToString() == "admin") {
+                view = "Index_admin";
             }
-            Drink drink = db.Drinks.Find(id);
-            if (drink == null)
-            {
-                return HttpNotFound();
-            }
-            return View(drink);
+
+            return View(view, db.Drinks.ToList());
         }
 
         // GET: Drinks/Create
