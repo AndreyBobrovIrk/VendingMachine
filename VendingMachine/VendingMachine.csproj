@@ -130,18 +130,28 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201907151440027_Initial.cs" />
-    <Compile Include="Migrations\201907151440027_Initial.Designer.cs">
-      <DependentUpon>201907151440027_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201907161534142_init.cs" />
+    <Compile Include="Migrations\201907161534142_init.Designer.cs">
+      <DependentUpon>201907161534142_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907161537481_coin.cs" />
+    <Compile Include="Migrations\201907161537481_coin.Designer.cs">
+      <DependentUpon>201907161537481_coin.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Coin.cs" />
+    <Compile Include="Models\SelectedCollection.cs" />
     <Compile Include="Models\DBInitializer.cs" />
     <Compile Include="Models\Drink.cs" />
+    <Compile Include="Models\Interfaces.cs" />
     <Compile Include="Models\VendingMachineContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\VendingMachineContext-20190715223837.mdf" />
+    <Content Include="App_Data\VendingMachineContext-20190715223837_log.ldf">
+      <DependentUpon>VendingMachineContext-20190715223837.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -176,16 +186,19 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Drinks\Create.cshtml" />
     <Content Include="Views\Drinks\Delete.cshtml" />
     <Content Include="Views\Drinks\Details.cshtml" />
     <Content Include="Views\Drinks\Edit.cshtml" />
     <Content Include="Views\Drinks\Index.cshtml" />
-    <Content Include="Views\Drinks\Index_admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <EmbeddedResource Include="Migrations\201907161534142_init.resx">
+      <DependentUpon>201907161534142_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907161537481_coin.resx">
+      <DependentUpon>201907161537481_coin.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -199,11 +212,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907151440027_Initial.resx">
-      <DependentUpon>201907151440027_Initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

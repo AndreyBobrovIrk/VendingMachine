@@ -12,13 +12,17 @@ namespace VendingMachine.Controllers
 {
     public class DrinksController : Controller
     {
+        public DrinksController()
+        {
+        }
+
         private VendingMachineContext db = new VendingMachineContext();
 
         // GET: Drinks
         public ActionResult Index()
         {
-            ViewData["admin"] = Request.QueryString.ToString() == "admin";
-            return View(db.Drinks.ToList());
+            db.IsAdmin = Request.QueryString.ToString() == "admin";
+            return View(db);
         }
 
         // GET: Drinks/Create
@@ -27,12 +31,18 @@ namespace VendingMachine.Controllers
             return View();
         }
 
+        // GET: Drinks/Create
+        public ActionResult InsertCoin(Coin a_coin)
+        {
+            return PartialView();
+        }
+
         // POST: Drinks/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Price,Count")] Drink drink)
+        public ActionResult Create([Bind(Include = "Id,Name,Value,Count")] Drink drink)
         {
             if (ModelState.IsValid)
             {

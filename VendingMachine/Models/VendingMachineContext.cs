@@ -14,11 +14,18 @@ namespace VendingMachine.Models
         // automatically whenever you change your model schema, please use data migrations.
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
-    
+
         public VendingMachineContext() : base("name=VendingMachineContext")
         {
+            SelectedDrinks = new SelectedCollection<Drink>(Drinks);
+            SelectedCoins = new SelectedCollection<Coin>(Coins);
         }
 
-    public System.Data.Entity.DbSet<VendingMachine.Models.Drink> Drinks { get; set; }
-  }
+        public System.Data.Entity.DbSet<Drink> Drinks { get; set; }
+        public System.Data.Entity.DbSet<Coin> Coins { get; set; }
+
+        public SelectedCollection<Coin> SelectedCoins { get; set; }
+        public SelectedCollection<Drink> SelectedDrinks { get; set; }
+        public bool IsAdmin { get; set; }
+    }
 }

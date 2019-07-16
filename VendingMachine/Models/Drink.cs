@@ -5,11 +5,11 @@ using System.Web;
 
 namespace VendingMachine.Models
 {
-  public class Drink
+  public class Drink : IIdentified, IValuable
   {
-    public uint Id { get; set; }
+    public int Id { get; set; }
     public string Name { get; set; }
-    public uint Price { get; set; }
-    public uint Count { get; set; }
+    public int Value { get; set; }
+    public int Count { get; set; }
   }
 }

@@ -1,6 +1,4 @@
-﻿@model IEnumerable<VendingMachine.Models.Drink>
-
-@{bool isAdmin = (bool)ViewData["admin"];}
+﻿@model VendingMachine.Models.VendingMachineContext
 
 @{
     ViewBag.Title = "Index";
@@ -11,7 +9,7 @@
 <div>
     <h2>Select drink:</h2>
 
-    @if (isAdmin)
+    @if (Model.IsAdmin)
     {
         <p>
             @Html.ActionLink("Create New", "Create")
@@ -21,33 +19,33 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                Price
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Count)
+                Count
             </th>
-            @if (isAdmin)
+            @if (Model.IsAdmin)
             {
                 <th></th>
             }
         </tr>
 
-        @foreach (var item in Model)
+        @foreach (var item in Model.Drinks)
         {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Price)
+                    @Html.DisplayFor(modelItem => item.Value)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Count)
                 </td>
-                @if (isAdmin)
+                @if (Model.IsAdmin)
                 {
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
@@ -60,12 +58,48 @@
     </table>
 </div>
 
-<footer>
+<div>
     <h2>Insert coins:</h2>
-    <table class="table" border="0">
+    <table class="table">
         <tr>
-            <th>
-            </th>
+            @foreach (var model in (Model.Coins))
+            {
+                <th>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.DisplayName(model.Value.ToString()) руб.
+                            </th>
+                        </tr>
+                        <tr>
+                            <th id="count">
+                                Сount: 0
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Ajax.ActionLink("Insert", "InsertCoin", new { model }, new AjaxOptions { UpdateTargetId = "count" })
+                            </td>
+                        </tr>
+                    </table>
+                </th>
+            }
+                <th>
+                    Total: @Model.SelectedCoins.Total руб.
+                </th>
         </tr>
     </table>
-</footer>
+</div>
+
+<div>
+    <h2>Selected drinks:</h2>
+    <table class="table">
+        <tr>
+        </tr>
+    </table>
+</div>
+
+<text>
+    @Html.ActionLink("Get drinks", "ConfirmOrder") |
+    @Html.ActionLink(String.Format("Get change ({0} руб.)", 0), "GetСhange")
+</text>
