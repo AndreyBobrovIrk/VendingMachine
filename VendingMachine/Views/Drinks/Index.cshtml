@@ -62,40 +62,42 @@
     <h2>Insert coins:</h2>
     <table class="table">
         <tr>
-            @foreach (var model in (Model.Coins))
+            @foreach (var o in Model.Coins)
             {
                 <th>
                     <table>
                         <tr>
                             <th>
-                                @Html.DisplayName(model.Value.ToString()) руб.
+                                @Html.DisplayName(o.Value.ToString()) руб.
                             </th>
                         </tr>
                         <tr>
-                            <th id="count">
-                                Сount: 0
+                            <th>
+                                Сount:
+                            </th>
+                            <th id='coins-count-@o.Id.ToString()'>
+                                0
                             </th>
                         </tr>
                         <tr>
                             <td>
-                                @Ajax.ActionLink("Insert", "InsertCoin", new { model }, new AjaxOptions { UpdateTargetId = "count" })
+                                @Ajax.ActionLink("Insert", "InsertCoin", o, new AjaxOptions { UpdateTargetId = "coins-count-" + o.Id.ToString(), OnSuccess = "UpdateCoinsTotal" })
                             </td>
                         </tr>
                     </table>
                 </th>
             }
                 <th>
-                    Total: @Model.SelectedCoins.Total руб.
+                    Total: <a id='coins-total'>@Model.SelectedCoins.Total</a> руб.
                 </th>
-        </tr>
+            </tr>
     </table>
 </div>
 
 <div>
     <h2>Selected drinks:</h2>
     <table class="table">
-        <tr>
-        </tr>
+        <tr></tr>
     </table>
 </div>
 

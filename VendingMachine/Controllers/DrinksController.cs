@@ -34,7 +34,7 @@ namespace VendingMachine.Controllers
         // GET: Drinks/Create
         public ActionResult InsertCoin(Coin a_coin)
         {
-            return PartialView();
+            return Content(db.SelectedCoins.AddItem(a_coin).ToString());
         }
 
         // POST: Drinks/Create

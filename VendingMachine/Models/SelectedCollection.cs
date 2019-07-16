@@ -25,29 +25,31 @@ namespace VendingMachine.Models
 
         public SelectedCollection(IEnumerable<T> a_list)
         {
-            //foreach(var item in a_list) {
-            //    m_collection.Add(item.Id, new SelectedItem(item));
-            //}
+            foreach(var item in a_list) {
+                m_collection.Add(item.Id, new SelectedItem(item));
+            }
         }
 
         Dictionary<int, SelectedCollection<T>.SelectedItem> m_collection = new Dictionary<int, SelectedItem>();
 
-        public void AddItem(T a_item)
+        public int AddItem(T a_item)
         {
             if (m_collection.Keys.All(o => o != a_item.Id)) {
                 m_collection.Add(a_item.Id, new SelectedItem(a_item));
             }
 
-            ++m_collection[a_item.Id].Count;
+            return ++m_collection[a_item.Id].Count;
         }
 
-        public void RemoveItem(T a_item)
+        public int RemoveItem(T a_item)
         {
             if (m_collection.Keys.Any(o => o == a_item.Id))
             {
                 m_collection.Remove(a_item.Id);
-                m_collection[a_item.Id].Count = Math.Max(0, --m_collection[a_item.Id].Count);
+                return m_collection[a_item.Id].Count = Math.Max(0, --m_collection[a_item.Id].Count);
             }
+
+            return 0;
         }
 
         public void Clear()
