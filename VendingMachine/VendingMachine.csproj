@@ -140,6 +140,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Coin.cs" />
+    <Compile Include="Models\RunTime.cs" />
     <Compile Include="Models\SelectedCollection.cs" />
     <Compile Include="Models\DBInitializer.cs" />
     <Compile Include="Models\Drink.cs" />

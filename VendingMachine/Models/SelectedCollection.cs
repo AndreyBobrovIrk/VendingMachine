@@ -5,9 +5,14 @@ using System.Web;
 
 namespace VendingMachine.Models
 {
-    public class SelectedCollection<T> where T : IIdentified, IValuable
+    public interface ISelectedItem
     {
-        private class SelectedItem
+        int Count { get; }
+    }
+
+    public class SelectedCollection<T> where T : IIdentified, IValuable, new()
+    {
+        private class SelectedItem : ISelectedItem
         {
             private SelectedItem() { }
             public SelectedItem(T a_item)
@@ -19,18 +24,22 @@ namespace VendingMachine.Models
             public int Count { get; set; }
         }
 
-        private SelectedCollection()
+        public SelectedCollection()
         {
-        }
-
-        public SelectedCollection(IEnumerable<T> a_list)
-        {
-            foreach(var item in a_list) {
-                m_collection.Add(item.Id, new SelectedItem(item));
-            }
         }
 
         Dictionary<int, SelectedCollection<T>.SelectedItem> m_collection = new Dictionary<int, SelectedItem>();
+
+        public int GetSelected(int a_id)
+        {
+            var res = m_collection.FirstOrDefault(o=>o.Key == a_id);
+            if(res.Value == null)
+            {
+                return 0;
+            }
+
+            return res.Value.Count;
+        }
 
         public int AddItem(T a_item)
         {

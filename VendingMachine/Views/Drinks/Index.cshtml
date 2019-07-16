@@ -9,7 +9,7 @@
 <div>
     <h2>Select drink:</h2>
 
-    @if (Model.IsAdmin)
+    @if (Model.RunTime.IsAdmin)
     {
         <p>
             @Html.ActionLink("Create New", "Create")
@@ -27,7 +27,7 @@
             <th>
                 Count
             </th>
-            @if (Model.IsAdmin)
+            @if (Model.RunTime.IsAdmin)
             {
                 <th></th>
             }
@@ -45,7 +45,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Count)
                 </td>
-                @if (Model.IsAdmin)
+                @if (Model.RunTime.IsAdmin)
                 {
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
@@ -76,7 +76,7 @@
                                 Сount:
                             </th>
                             <th id='coins-count-@o.Id.ToString()'>
-                                0
+                                @Model.RunTime.SelectedCoins.GetSelected(o.Id)
                             </th>
                         </tr>
                         <tr>
@@ -88,7 +88,7 @@
                 </th>
             }
                 <th>
-                    Total: <a id='coins-total'>@Model.SelectedCoins.Total</a> руб.
+                    Total: <a id='coins-total'>@Model.RunTime.SelectedCoins.Total</a> руб.
                 </th>
             </tr>
     </table>

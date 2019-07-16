@@ -14,14 +14,16 @@ namespace VendingMachine.Controllers
     {
         public DrinksController()
         {
+
         }
 
-        private VendingMachineContext db = new VendingMachineContext();
+        private static RunTime s_runTime = new RunTime();
+        private VendingMachineContext db = new VendingMachineContext(s_runTime);
 
         // GET: Drinks
         public ActionResult Index()
         {
-            db.IsAdmin = Request.QueryString.ToString() == "admin";
+            s_runTime.IsAdmin = Request.QueryString.ToString() == "admin";
             return View(db);
         }
 
@@ -34,7 +36,7 @@ namespace VendingMachine.Controllers
         // GET: Drinks/Create
         public ActionResult InsertCoin(Coin a_coin)
         {
-            return Content(db.SelectedCoins.AddItem(a_coin).ToString());
+            return Content(s_runTime.SelectedCoins.AddItem(a_coin).ToString());
         }
 
         // POST: Drinks/Create
