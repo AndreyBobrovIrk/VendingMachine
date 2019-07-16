@@ -17,13 +17,8 @@ namespace VendingMachine.Controllers
         // GET: Drinks
         public ActionResult Index()
         {
-            String view = "Index";
-
-            if (Request.QueryString.ToString() == "admin") {
-                view = "Index_admin";
-            }
-
-            return View(view, db.Drinks.ToList());
+            ViewData["admin"] = Request.QueryString.ToString() == "admin";
+            return View(db.Drinks.ToList());
         }
 
         // GET: Drinks/Create

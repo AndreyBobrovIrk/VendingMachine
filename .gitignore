@@ -4,3 +4,4 @@ VendingMachine.Tests/obj/
 VendingMachine/obj/
 packages/
 .vs/
+VendingMachine/App_Data/VendingMachineContext-20190715223837.mdf
