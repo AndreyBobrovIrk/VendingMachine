@@ -7,9 +7,9 @@ namespace VendingMachine.Models
 {
   public class Drink
   {
-    public int Id { get; set; }
+    public uint Id { get; set; }
     public string Name { get; set; }
-    public int Price { get; set; }
-    public int Count { get; set; }
+    public uint Price { get; set; }
+    public uint Count { get; set; }
   }
 }
