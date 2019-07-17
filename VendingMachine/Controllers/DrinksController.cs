@@ -28,51 +28,17 @@ namespace VendingMachine.Controllers
             return View(db);
         }
 
-        // GET: Drinks/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
         public ActionResult InsertCoin(string id)
         {
             return Content((s_runTime.Coins += db.Coins.First(o => o.Id.ToString() == id).Value).ToString());
         }
 
-        public ActionResult ConfirmOrder()
-        {
-            foreach (var o in db.Drinks)
-            {
-                o.Count = Math.Max(0, o.Count - db.RunTime.SelectedDrinks.GetSelected(o.Id));
-            }
-
-            ArrayList res = new ArrayList();
-            foreach(var o in db.RunTime.SelectedDrinks)
-            {
-                res.Add(
-                    new {
-                        Name = o.Item.Name,
-                        Count = o.Count
-                    }
-                );
-            }
-
-            db.RunTime.Coins = db.RunTime.CoinsLimit;
-            db.RunTime.SelectedDrinks.Clear();
-            db.SaveChanges();
-
-            return Json(
-              res,
-              JsonRequestBehavior.AllowGet
-            );
-        }
-
         public ActionResult GetAvailableDrinks()
         {
             ArrayList list = new ArrayList();
-            foreach(var o in db.Drinks.ToArray())
+            foreach (var o in db.Drinks.ToArray())
             {
-                list.Add(new { Id = o.Id, Available = o.Value <= s_runTime.CoinsLimit && db.GetDrinkLimit(o.Id) > 0 });
+                list.Add(new { Id = o.Id, Available = o.Value <= s_runTime.Coins && GetDrink(o.Id).Count > 0 });
             }
 
             return Json(
@@ -84,119 +50,35 @@ namespace VendingMachine.Controllers
             );
         }
 
-        public ActionResult GetCoinsLimit()
+        private Drink GetDrink(int id)
         {
-            return Content(s_runTime.CoinsLimit.ToString());
-        }
+            var obj = db.Drinks.FirstOrDefault(o => o.Id == id);
 
-        public ActionResult GetDrinkLimit(int id)
-        {
-            return Json(
-                new
-                {
-                    Id = id,
-                    Count = db.GetDrinkLimit(id)
-                },
-                JsonRequestBehavior.AllowGet
-            );
-
-        }
-
-        public ActionResult SelectDrink(String id)
-        {
-            var count = s_runTime.SelectedDrinks.AddItem(db.Drinks.First(o => o.Id.ToString() == id));
-
-            return Json(
-                new
-                {
-                    Id = id,
-                    Count = count
-                },
-                JsonRequestBehavior.AllowGet
-            );
-        }
-
-        // POST: Drinks/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Value,Count")] Drink drink)
-        {
-            if (ModelState.IsValid)
+            if (obj == null)
             {
-                db.Drinks.Add(drink);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                throw new Exception("Object not found!");
             }
 
-            return View(drink);
+            return obj;
         }
 
-        // GET: Drinks/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult SelectDrink(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Drink drink = db.Drinks.Find(id);
-            if (drink == null)
-            {
-                return HttpNotFound();
-            }
-            return View(drink);
-        }
+            var obj = GetDrink(id);
+            obj.Count = Math.Max(0, --obj.Count);
+            db.RunTime.Coins -= obj.Value;
 
-        // POST: Drinks/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Price,Count")] Drink drink)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(drink).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(drink);
-        }
-
-        // GET: Drinks/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Drink drink = db.Drinks.Find(id);
-            if (drink == null)
-            {
-                return HttpNotFound();
-            }
-            return View(drink);
-        }
-
-        // POST: Drinks/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Drink drink = db.Drinks.Find(id);
-            db.Drinks.Remove(drink);
             db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            return Json(
+                new
+                {
+                    Id = obj.Id,
+                    Count = obj.Count,
+                    Coins = db.RunTime.Coins
+                },
+                JsonRequestBehavior.AllowGet
+            );
         }
     }
 }

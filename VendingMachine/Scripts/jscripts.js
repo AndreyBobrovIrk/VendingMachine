@@ -1,16 +1,14 @@
 ﻿function InsertCoin(data) {
     $('th#coins-total').html(data);
 
-    GetCoinsLimit();
     GetAvailableDrinks();
 }
 
 function SelectDrink(data) {
-    $('th#selected_drink-' + data.Id).html("(" + data.Count + ")");
+    $('td#drink_count-' + data.Id).html(data.Count);
+    $('th#coins-total').html(data.Coins);
 
-    GetDrinkLimit(data.Id);
     GetAvailableDrinks();
-    GetCoinsLimit();
 }
 
 function UpdateAvailableDrinks(data) {
@@ -19,52 +17,12 @@ function UpdateAvailableDrinks(data) {
     }
 }
 
-function UpdateCoinsLimit(data) {
-    $('th#coins-limit').html(data);
-}
-
-function UpdateDrinkLimit(data) {
-    $('td#drink_limit-' + data.Id).html(data.Count);
-}
-
 function GetAvailableDrinks() {
     $.ajax({
         type: "GET",
         url: "/Drinks/GetAvailableDrinks",
         success: UpdateAvailableDrinks
     });
-}
-
-function GetCoinsLimit() {
-    $.ajax({
-        type: "GET",
-        url: "/Drinks/GetCoinsLimit",
-        success: UpdateCoinsLimit
-    });
-}
-
-function GetDrinkLimit(id) {
-    $.ajax({
-        type: "GET",
-        url: "/Drinks/GetDrinkLimit",
-        dataType: 'json',
-        contentType: 'application/json',
-        data: ({ id: id }),
-        success: UpdateDrinkLimit
-    });
-}
-
-function ConfirmOrder(data)
-{
-    var msg = "Ваш заказ:\n\r";
-
-    for (i = 0; i < data.length; ++i) {
-        msg = msg.concat("  ", data[i].Name, " - ", data[i].Count, "шт.\n\r");
-    }
-
-    alert(msg);
-
-    location.reload();
 }
 
 $(document).ready(function () {

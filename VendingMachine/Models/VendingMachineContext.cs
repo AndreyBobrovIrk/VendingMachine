@@ -30,15 +30,5 @@ namespace VendingMachine.Models
 
         public RunTime RunTime { get; private set; }
 
-        public int GetDrinkLimit(int id)
-        {
-            var drink = Drinks.FirstOrDefault(o => o.Id == id);
-            if (drink == null)
-            {
-                return 0;
-            }
-
-            return drink.Count - RunTime.SelectedDrinks.GetSelected(id);
-        }
     }
 }

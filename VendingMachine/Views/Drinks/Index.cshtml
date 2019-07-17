@@ -39,8 +39,8 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Value)
                 </td>
-                <td id="drink_limit-@item.Id.ToString()">
-                    @Model.GetDrinkLimit(item.Id)
+                <td id="drink_count-@item.Id.ToString()">
+                    @item.Count
                 </td>
                 @if (Model.RunTime.IsAdmin)
                 {
@@ -57,13 +57,9 @@
                                 <th>
                                     <button disabled id="select_drink-@item.Id.ToString()" value="@item.Id.ToString()">Select</button>
                                 </th>
-                                <th id="selected_drink-@item.Id.ToString()">
-                                    (@Model.RunTime.SelectedDrinks.GetSelected(item.Id))
-                                </th>
                             </tr>
                         </table>
                     </td>
-
                 }
             </tr>
         }
@@ -105,31 +101,12 @@
                             руб.
                         </th>
                     </tr>
-                    <tr>
-                        <th>
-                            Limit:
-                        </th>
-                        <th id='coins-limit'>
-                            @Model.RunTime.CoinsLimit
-                        </th>
-                        <th>
-                            руб.
-                        </th>
-                    </tr>
                 </table>
             </th>
         </tr>
     </table>
 </div>
-<!--
-<div>
-    <h2>Selected drinks:</h2>
-    <table class="table">
-        <tr></tr>
-    </table>
-</div>
-    -->
+
 <text>
-    @Ajax.ActionLink("Get drinks", "ConfirmOrder", new AjaxOptions { OnSuccess = "ConfirmOrder" }) |
-    @Html.ActionLink(String.Format("Get change ({0} руб.)", 0), "GetСhange")
+    @Html.ActionLink(String.Format("Get change", 0), "GetСhange")
 </text>
