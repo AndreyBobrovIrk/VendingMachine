@@ -46,11 +46,25 @@ namespace VendingMachine.Controllers
                 o.Count = Math.Max(0, o.Count - db.RunTime.SelectedDrinks.GetSelected(o.Id));
             }
 
+            ArrayList res = new ArrayList();
+            foreach(var o in db.RunTime.SelectedDrinks)
+            {
+                res.Add(
+                    new {
+                        Name = o.Item.Name,
+                        Count = o.Count
+                    }
+                );
+            }
+
             db.RunTime.Coins = db.RunTime.CoinsLimit;
             db.RunTime.SelectedDrinks.Clear();
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return Json(
+              res,
+              JsonRequestBehavior.AllowGet
+            );
         }
 
         public ActionResult GetAvailableDrinks()

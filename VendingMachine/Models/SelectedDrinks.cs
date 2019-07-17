@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,21 +10,20 @@ namespace VendingMachine.Models
     {
         int Count { get; }
     }
-
-    public class SelectedDrinkCollection
+    public class SelectedDrink : ISelectedItem
     {
-        private class SelectedDrink : ISelectedItem
+        private SelectedDrink() { }
+        public SelectedDrink(Drink a_item)
         {
-            private SelectedDrink() { }
-            public SelectedDrink(Drink a_item)
-            {
-                Item = a_item;
-            }
-
-            public Drink Item { get; private set; }
-            public int Count { get; set; }
+            Item = a_item;
         }
 
+        public Drink Item { get; private set; }
+        public int Count { get; set; }
+    }
+
+    public class SelectedDrinkCollection : IEnumerable<SelectedDrink>
+    {
         public SelectedDrinkCollection()
         {
         }
@@ -64,6 +64,16 @@ namespace VendingMachine.Models
         public void Clear()
         {
             m_collection.Clear();
+        }
+
+        public IEnumerator<SelectedDrink> GetEnumerator()
+        {
+            return m_collection.Values.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return m_collection.Values.GetEnumerator();
         }
 
         public int Total

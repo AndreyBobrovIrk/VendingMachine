@@ -56,7 +56,11 @@ function GetDrinkLimit(id) {
 
 function ConfirmOrder(data)
 {
-    var msg = "Ваш заказ:";
+    var msg = "Ваш заказ:\n\r";
+
+    for (i = 0; i < data.length; ++i) {
+        msg = msg.concat("  ", data[i].Name, " - ", data[i].Count, "шт.\n\r");
+    }
 
     alert(msg);
 
@@ -64,6 +68,8 @@ function ConfirmOrder(data)
 }
 
 $(document).ready(function () {
+    GetAvailableDrinks();
+
     $("button[id |= 'select_drink']").click(
         function () {
             $.ajax({
