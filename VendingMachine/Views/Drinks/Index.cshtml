@@ -27,31 +27,37 @@
             <th>
                 Count
             </th>
-            @if (Model.RunTime.IsAdmin)
-            {
-                <th></th>
-            }
+            <th></th>
         </tr>
 
         @foreach (var item in Model.Drinks)
         {
-            <tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Count)
+            </td>
+            @if (Model.RunTime.IsAdmin)
+            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                 </td>
+            }
+            else
+            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.Value)
+                    @Ajax.ActionLink("Select", "SelectDrink", item, new AjaxOptions {
+                      OnSuccess = "SelectDrink(data);"
+                    })
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Count)
-                </td>
-                @if (Model.RunTime.IsAdmin)
-                {
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                    </td>
-                }
+
+                    }
             </tr>
         }
 
@@ -81,16 +87,30 @@
                         </tr>
                         <tr>
                             <td>
-                                @Ajax.ActionLink("Insert", "InsertCoin", o, new AjaxOptions { UpdateTargetId = "coins-count-" + o.Id.ToString(), OnSuccess = "UpdateCoinsTotal" })
-                            </td>
+                                @Ajax.ActionLink("Insert", "InsertCoin", o, new AjaxOptions {
+                                OnSuccess = "InsertCoins(data);"
+                           })
+                             </td>
                         </tr>
                     </table>
                 </th>
             }
                 <th>
-                    Total: <a id='coins-total'>@Model.RunTime.SelectedCoins.Total</a> руб.
+                    <table>
+                        <tr>
+                            <th>
+                                Total:
+                            </th>
+                            <th id='coins-total'>
+                                @Model.RunTime.SelectedCoins.Total
+                            </th>
+                            <th>
+                                руб.
+                            </th>
+                        </tr>
+                    </table>
                 </th>
-            </tr>
+        </tr>
     </table>
 </div>
 

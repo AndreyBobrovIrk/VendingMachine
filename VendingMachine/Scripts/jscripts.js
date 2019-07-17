@@ -1,13 +1,4 @@
-﻿function UpdateCoinsTotal() {
-//    alert("!!!!!!!!");
-    /*
-    $(document).ready(function () {
-        $('#submit').click(function (e) {
-            e.preventDefault();
-            var name = $('#search').val();
-            name = encodeURIComponent(name);
-            $('#results').load("http://localhost:51805/Home/BookSearch?name=" + name);
-        });
-    });
-    */
+﻿function InsertCoins(data) {
+    $('th#coins-count-' + data.Id).html(data.Count);
+    $('th#coins-total').html(data.Total);
 }

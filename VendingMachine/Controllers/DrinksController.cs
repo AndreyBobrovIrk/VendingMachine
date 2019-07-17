@@ -33,10 +33,24 @@ namespace VendingMachine.Controllers
             return View();
         }
 
-        // GET: Drinks/Create
         public ActionResult InsertCoin(Coin a_coin)
         {
-            return Content(s_runTime.SelectedCoins.AddItem(a_coin).ToString());
+            InsertCoinResult res = new InsertCoinResult();
+            res.Id = a_coin.Id;
+            res.Count = s_runTime.SelectedCoins.AddItem(a_coin);
+            res.Total = s_runTime.SelectedCoins.Total;
+
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult SelectDrink(Coin a_drink)
+        {
+            InsertCoinResult res = new InsertCoinResult();
+            //res.Id = a_coin.Id;
+            //res.Count = s_runTime.SelectedCoins.AddItem(a_coin);
+            //res.Total = s_runTime.SelectedCoins.Total;
+
+            return Json(res, JsonRequestBehavior.AllowGet);
         }
 
         // POST: Drinks/Create
