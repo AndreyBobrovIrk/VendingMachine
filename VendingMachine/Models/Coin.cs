@@ -5,7 +5,7 @@ using System.Web;
 
 namespace VendingMachine.Models
 {
-    public class Coin : IIdentified, IValuable
+    public class Coin
     {
         public int Id { get; set; }
         public bool Disabled { get; set; }

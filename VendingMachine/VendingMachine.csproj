@@ -143,7 +143,6 @@
     <Compile Include="Models\RunTime.cs" />
     <Compile Include="Models\DBInitializer.cs" />
     <Compile Include="Models\Drink.cs" />
-    <Compile Include="Models\Interfaces.cs" />
     <Compile Include="Models\VendingMachineContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
