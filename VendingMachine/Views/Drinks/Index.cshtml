@@ -32,41 +32,44 @@
 
         @foreach (var item in Model.Drinks)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Value)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Count)
-            </td>
-            @if (Model.RunTime.IsAdmin)
-            {
+            <tr>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.DisplayFor(modelItem => item.Name)
                 </td>
-            }
-            else
-            {
                 <td>
-                    <table>
-                        <tr>
-                            <th>
-                                @Ajax.ActionLink("Select", "SelectDrink", item, new AjaxOptions {
-                                  OnSuccess = "SelectDrink(data);"
-                                })
-                            </th>
-                            <th>
-                                (@Model.RunTime.SelectedDrinks.GetSelected(item.Id))
-                            </th>
-                        </tr>
-                    </table>
+                    @Html.DisplayFor(modelItem => item.Value)
                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Count)
+                </td>
+                @if (Model.RunTime.IsAdmin)
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <table>
+                            <tr>
+                                <th>
+                                    <button disabled id="select_drink-@item.Id.ToString()">Select</button>
+                                    @*@Ajax.ActionLink("Select", "SelectDrink", item, new AjaxOptions {
+                                            OnSuccess = "SelectDrink(data);"
+                                        },
+                                             new { id="select-drink-" + item.Id }
+                                             )*@
+                                </th>
+                                <th>
+                                    (@Model.RunTime.SelectedDrinks.GetSelected(item.Id))
+                                </th>
+                            </tr>
+                        </table>
+                    </td>
 
-                    }
+                }
             </tr>
         }
 
@@ -96,29 +99,31 @@
                         </tr>
                         <tr>
                             <td>
-                                @Ajax.ActionLink("Insert", "InsertCoin", o, new AjaxOptions {
-                                OnSuccess = "InsertCoins(data);"
-                           })
-                             </td>
+                                <button id="insert_coin-@o.Id.ToString()" value="@o.Id.ToString()">Insert</button>
+
+                                @*@Ajax.ActionLink("Insert", "InsertCoin", o, new AjaxOptions {
+                                         OnSuccess = "InsertCoins(data);"
+                                    })*@
+                            </td>
                         </tr>
                     </table>
                 </th>
             }
-                <th>
-                    <table>
-                        <tr>
-                            <th>
-                                Total:
-                            </th>
-                            <th id='coins-total'>
-                                @Model.RunTime.SelectedCoins.Total
-                            </th>
-                            <th>
-                                руб.
-                            </th>
-                        </tr>
-                    </table>
-                </th>
+            <th>
+                <table>
+                    <tr>
+                        <th>
+                            Total:
+                        </th>
+                        <th id='coins-total'>
+                            @Model.RunTime.SelectedCoins.Total
+                        </th>
+                        <th>
+                            руб.
+                        </th>
+                    </tr>
+                </table>
+            </th>
         </tr>
     </table>
 </div>

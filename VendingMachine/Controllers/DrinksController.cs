@@ -33,12 +33,13 @@ namespace VendingMachine.Controllers
             return View();
         }
 
-        public ActionResult InsertCoin(Coin a_coin)
+        public ActionResult InsertCoin(string id)
         {
             return Json(
-                new {
-                    Id = a_coin.Id,
-                    Count = s_runTime.SelectedCoins.AddItem(a_coin),
+                new
+                {
+                    Id = id,
+                    Count = s_runTime.SelectedCoins.AddItem(db.Coins.First(o => o.Id.ToString() == id)),
                     Total = s_runTime.SelectedCoins.Total
                 },
                 JsonRequestBehavior.AllowGet
