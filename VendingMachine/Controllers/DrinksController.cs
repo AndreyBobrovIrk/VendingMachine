@@ -35,22 +35,27 @@ namespace VendingMachine.Controllers
 
         public ActionResult InsertCoin(Coin a_coin)
         {
-            InsertCoinResult res = new InsertCoinResult();
-            res.Id = a_coin.Id;
-            res.Count = s_runTime.SelectedCoins.AddItem(a_coin);
-            res.Total = s_runTime.SelectedCoins.Total;
-
-            return Json(res, JsonRequestBehavior.AllowGet);
+            return Json(
+                new {
+                    Id = a_coin.Id,
+                    Count = s_runTime.SelectedCoins.AddItem(a_coin),
+                    Total = s_runTime.SelectedCoins.Total
+                },
+                JsonRequestBehavior.AllowGet
+            );
         }
 
-        public ActionResult SelectDrink(Coin a_drink)
+        public ActionResult SelectDrink(Drink a_drink)
         {
-            InsertCoinResult res = new InsertCoinResult();
-            //res.Id = a_coin.Id;
-            //res.Count = s_runTime.SelectedCoins.AddItem(a_coin);
-            //res.Total = s_runTime.SelectedCoins.Total;
-
-            return Json(res, JsonRequestBehavior.AllowGet);
+            return Json(
+                new
+                {
+                    Id = a_drink.Id,
+                    Count = s_runTime.SelectedDrinks.AddItem(a_drink),
+                    Total = s_runTime.SelectedCoins.Total
+                },
+                JsonRequestBehavior.AllowGet
+            );
         }
 
         // POST: Drinks/Create

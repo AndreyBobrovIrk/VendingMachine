@@ -52,9 +52,18 @@
             else
             {
                 <td>
-                    @Ajax.ActionLink("Select", "SelectDrink", item, new AjaxOptions {
-                      OnSuccess = "SelectDrink(data);"
-                    })
+                    <table>
+                        <tr>
+                            <th>
+                                @Ajax.ActionLink("Select", "SelectDrink", item, new AjaxOptions {
+                                  OnSuccess = "SelectDrink(data);"
+                                })
+                            </th>
+                            <th>
+                                (@Model.RunTime.SelectedDrinks.GetSelected(item.Id))
+                            </th>
+                        </tr>
+                    </table>
                 </td>
 
                     }
@@ -113,14 +122,14 @@
         </tr>
     </table>
 </div>
-
+<!--
 <div>
     <h2>Selected drinks:</h2>
     <table class="table">
         <tr></tr>
     </table>
 </div>
-
+    -->
 <text>
     @Html.ActionLink("Get drinks", "ConfirmOrder") |
     @Html.ActionLink(String.Format("Get change ({0} руб.)", 0), "GetСhange")
