@@ -1,13 +1,13 @@
 ﻿@model VendingMachine.Models.VendingMachineContext
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Торговый автомат";
 }
 
 <header></header>
 
 <div>
-    <h2>Select drink:</h2>
+    <h2>Выберите напиток:</h2>
 
     @if (Model.RunTime.IsAdmin)
     {
@@ -19,13 +19,13 @@
     <table class="table">
         <tr>
             <th>
-                Name
+                Название
             </th>
             <th>
-                Price
+                Цена
             </th>
             <th>
-                Count
+                Количество
             </th>
             <th></th>
         </tr>
@@ -55,7 +55,7 @@
                         <table>
                             <tr>
                                 <th>
-                                    <button disabled id="select_drink-@item.Id.ToString()" value="@item.Id.ToString()">Select</button>
+                                    <button disabled id="select_drink-@item.Id.ToString()" value="@item.Id.ToString()">Выбрать</button>
                                 </th>
                             </tr>
                         </table>
@@ -68,7 +68,7 @@
 </div>
 
 <div>
-    <h2>Insert coins:</h2>
+    <h2>Вставьте монету:</h2>
     <table class="table">
         <tr>
             @foreach (var o in Model.Coins)
@@ -82,7 +82,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <button id="insert_coin-@o.Id.ToString()" value="@o.Id.ToString()">Insert</button>
+                                <button id="insert_coin-@o.Id.ToString()" value="@o.Id.ToString()">Вставить</button>
                             </td>
                         </tr>
                     </table>
@@ -92,7 +92,7 @@
                 <table>
                     <tr>
                         <th>
-                            Total:
+                            Остаток средств:
                         </th>
                         <th id='coins-total'>
                             @Model.RunTime.Coins
@@ -108,5 +108,5 @@
 </div>
 
 <text>
-    @Html.ActionLink(String.Format("Get change", 0), "GetСhange")
+    <a id="get-change">Забрать сдачу</a>
 </text>

@@ -17,6 +17,11 @@ function UpdateAvailableDrinks(data) {
     }
 }
 
+function GetChange(data) {
+    InsertCoin(0);
+    alert("Ваша сдача: " + data + " руб.");
+}
+
 function GetAvailableDrinks() {
     $.ajax({
         type: "GET",
@@ -52,6 +57,16 @@ $(document).ready(function () {
                 mimeType: 'application/json',
                 data: ({ id: $(this).attr('value') }),
                 success: InsertCoin,
+            });
+        }
+    )
+
+    $("a#get-change").click(
+        function () {
+            $.ajax({
+                type: "GET",
+                url: "/Drinks/GetChange",
+                success: GetChange,
             });
         }
     )

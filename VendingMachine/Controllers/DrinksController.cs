@@ -33,6 +33,13 @@ namespace VendingMachine.Controllers
             return Content((s_runTime.Coins += db.Coins.First(o => o.Id.ToString() == id).Value).ToString());
         }
 
+        public ActionResult GetChange()
+        {
+            int res = db.RunTime.Coins;
+            db.RunTime.Coins = 0;
+            return Content(res.ToString());
+        }
+
         public ActionResult GetAvailableDrinks()
         {
             ArrayList list = new ArrayList();
