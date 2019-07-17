@@ -9,13 +9,6 @@
 <div>
     <h2>Выберите напиток:</h2>
 
-    @if (Model.RunTime.IsAdmin)
-    {
-        <p>
-            @Html.ActionLink("Create New", "Create")
-        </p>
-    }
-
     <table class="table">
         <tr>
             <th>
@@ -42,25 +35,15 @@
                 <td id="drink_count-@item.Id.ToString()">
                     @item.Count
                 </td>
-                @if (Model.RunTime.IsAdmin)
-                {
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                    </td>
-                }
-                else
-                {
-                    <td>
-                        <table>
-                            <tr>
-                                <th>
-                                    <button disabled id="select_drink-@item.Id.ToString()" value="@item.Id.ToString()">Выбрать</button>
-                                </th>
-                            </tr>
-                        </table>
-                    </td>
-                }
+                <td>
+                    <table>
+                        <tr>
+                            <th>
+                                <button disabled id="select_drink-@item.Id.ToString()" value="@item.Id.ToString()">Выбрать</button>
+                            </th>
+                        </tr>
+                    </table>
+                </td>
             </tr>
         }
 
