@@ -9,13 +9,12 @@ namespace VendingMachine.Models
     {
         public RunTime()
         {
-            SelectedDrinks = new SelectedCollection<Drink>();
-            SelectedCoins = new SelectedCollection<Coin>();
+            SelectedDrinks = new SelectedDrinkCollection();
         }
 
-        public SelectedCollection<Coin> SelectedCoins { get; set; }
-        public SelectedCollection<Drink> SelectedDrinks { get; set; }
-        public int CoinsLimit { get { return SelectedCoins.Total - SelectedDrinks.Total; } }
+        public SelectedDrinkCollection SelectedDrinks { get; set; }
+        public int Coins { get; set; }
+        public int CoinsLimit { get { return Coins - SelectedDrinks.Total; } }
         public bool IsAdmin { get; set; }
     }
 }

@@ -10,25 +10,25 @@ namespace VendingMachine.Models
         int Count { get; }
     }
 
-    public class SelectedCollection<T> where T : IIdentified, IValuable, new()
+    public class SelectedDrinkCollection
     {
-        private class SelectedItem : ISelectedItem
+        private class SelectedDrink : ISelectedItem
         {
-            private SelectedItem() { }
-            public SelectedItem(T a_item)
+            private SelectedDrink() { }
+            public SelectedDrink(Drink a_item)
             {
                 Item = a_item;
             }
 
-            public T Item { get; private set; }
+            public Drink Item { get; private set; }
             public int Count { get; set; }
         }
 
-        public SelectedCollection()
+        public SelectedDrinkCollection()
         {
         }
 
-        Dictionary<int, SelectedCollection<T>.SelectedItem> m_collection = new Dictionary<int, SelectedItem>();
+        Dictionary<int, SelectedDrink> m_collection = new Dictionary<int, SelectedDrink>();
 
         public int GetSelected(int a_id)
         {
@@ -41,16 +41,16 @@ namespace VendingMachine.Models
             return res.Value.Count;
         }
 
-        public int AddItem(T a_item)
+        public int AddItem(Drink a_item)
         {
             if (m_collection.Keys.All(o => o != a_item.Id)) {
-                m_collection.Add(a_item.Id, new SelectedItem(a_item));
+                m_collection.Add(a_item.Id, new SelectedDrink(a_item));
             }
 
             return ++m_collection[a_item.Id].Count;
         }
 
-        public int RemoveItem(T a_item)
+        public int RemoveItem(Drink a_item)
         {
             if (m_collection.Keys.Any(o => o == a_item.Id))
             {

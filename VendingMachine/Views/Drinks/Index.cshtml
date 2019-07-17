@@ -85,14 +85,6 @@
                             </th>
                         </tr>
                         <tr>
-                            <th>
-                                Сount:
-                            </th>
-                            <th id='coins-count-@o.Id.ToString()'>
-                                @Model.RunTime.SelectedCoins.GetSelected(o.Id)
-                            </th>
-                        </tr>
-                        <tr>
                             <td>
                                 <button id="insert_coin-@o.Id.ToString()" value="@o.Id.ToString()">Insert</button>
                             </td>
@@ -107,7 +99,7 @@
                             Total:
                         </th>
                         <th id='coins-total'>
-                            @Model.RunTime.SelectedCoins.Total
+                            @Model.RunTime.Coins
                         </th>
                         <th>
                             руб.

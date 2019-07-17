@@ -36,18 +36,7 @@ namespace VendingMachine.Controllers
 
         public ActionResult InsertCoin(string id)
         {
-            var count = s_runTime.SelectedCoins.AddItem(db.Coins.First(o => o.Id.ToString() == id));
-
-
-            return Json(
-                new
-                {
-                    Id = id,
-                    Count = count,
-                    Total = s_runTime.SelectedCoins.Total
-                },
-                JsonRequestBehavior.AllowGet
-            );
+            return Content((s_runTime.Coins += db.Coins.First(o => o.Id.ToString() == id).Value).ToString());
         }
 
         public ActionResult ConfirmOrder()
@@ -57,7 +46,7 @@ namespace VendingMachine.Controllers
                 o.Count = Math.Max(0, o.Count - db.RunTime.SelectedDrinks.GetSelected(o.Id));
             }
 
-            db.RunTime.SelectedCoins.Clear();
+            db.RunTime.Coins = db.RunTime.CoinsLimit;
             db.RunTime.SelectedDrinks.Clear();
             db.SaveChanges();
 

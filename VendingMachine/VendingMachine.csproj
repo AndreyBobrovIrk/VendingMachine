@@ -141,7 +141,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Coin.cs" />
     <Compile Include="Models\RunTime.cs" />
-    <Compile Include="Models\SelectedCollection.cs" />
+    <Compile Include="Models\SelectedDrinks.cs" />
     <Compile Include="Models\DBInitializer.cs" />
     <Compile Include="Models\Drink.cs" />
     <Compile Include="Models\Interfaces.cs" />

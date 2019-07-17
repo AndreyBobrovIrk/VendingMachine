@@ -1,6 +1,5 @@
 ﻿function InsertCoin(data) {
-    $('th#coins-count-' + data.Id).html(data.Count);
-    $('th#coins-total').html(data.Total);
+    $('th#coins-total').html(data);
 
     GetCoinsLimit();
     GetAvailableDrinks();
@@ -60,6 +59,8 @@ function ConfirmOrder(data)
     var msg = "Ваш заказ:";
 
     alert(msg);
+
+    location.reload();
 }
 
 $(document).ready(function () {
