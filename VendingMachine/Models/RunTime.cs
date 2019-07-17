@@ -15,6 +15,7 @@ namespace VendingMachine.Models
 
         public SelectedCollection<Coin> SelectedCoins { get; set; }
         public SelectedCollection<Drink> SelectedDrinks { get; set; }
+        public int CoinsLimit { get { return SelectedCoins.Total - SelectedDrinks.Total; } }
         public bool IsAdmin { get; set; }
     }
 }

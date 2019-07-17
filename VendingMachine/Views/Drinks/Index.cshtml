@@ -39,8 +39,8 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Value)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Count)
+                <td id="drink_limit-@item.Id.ToString()">
+                    @Model.GetDrinkLimit(item.Id)
                 </td>
                 @if (Model.RunTime.IsAdmin)
                 {
@@ -55,14 +55,9 @@
                         <table>
                             <tr>
                                 <th>
-                                    <button disabled id="select_drink-@item.Id.ToString()">Select</button>
-                                    @*@Ajax.ActionLink("Select", "SelectDrink", item, new AjaxOptions {
-                                            OnSuccess = "SelectDrink(data);"
-                                        },
-                                             new { id="select-drink-" + item.Id }
-                                             )*@
+                                    <button disabled id="select_drink-@item.Id.ToString()" value="@item.Id.ToString()">Select</button>
                                 </th>
-                                <th>
+                                <th id="selected_drink-@item.Id.ToString()">
                                     (@Model.RunTime.SelectedDrinks.GetSelected(item.Id))
                                 </th>
                             </tr>
@@ -100,10 +95,6 @@
                         <tr>
                             <td>
                                 <button id="insert_coin-@o.Id.ToString()" value="@o.Id.ToString()">Insert</button>
-
-                                @*@Ajax.ActionLink("Insert", "InsertCoin", o, new AjaxOptions {
-                                         OnSuccess = "InsertCoins(data);"
-                                    })*@
                             </td>
                         </tr>
                     </table>
@@ -117,6 +108,17 @@
                         </th>
                         <th id='coins-total'>
                             @Model.RunTime.SelectedCoins.Total
+                        </th>
+                        <th>
+                            руб.
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            Limit:
+                        </th>
+                        <th id='coins-limit'>
+                            @Model.RunTime.CoinsLimit
                         </th>
                         <th>
                             руб.
@@ -136,6 +138,6 @@
 </div>
     -->
 <text>
-    @Html.ActionLink("Get drinks", "ConfirmOrder") |
+    @Ajax.ActionLink("Get drinks", "ConfirmOrder", new AjaxOptions { OnSuccess = "ConfirmOrder" }) |
     @Html.ActionLink(String.Format("Get change ({0} руб.)", 0), "GetСhange")
 </text>

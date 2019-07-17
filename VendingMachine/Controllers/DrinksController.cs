@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -35,25 +36,78 @@ namespace VendingMachine.Controllers
 
         public ActionResult InsertCoin(string id)
         {
+            var count = s_runTime.SelectedCoins.AddItem(db.Coins.First(o => o.Id.ToString() == id));
+
+
             return Json(
                 new
                 {
                     Id = id,
-                    Count = s_runTime.SelectedCoins.AddItem(db.Coins.First(o => o.Id.ToString() == id)),
+                    Count = count,
                     Total = s_runTime.SelectedCoins.Total
                 },
                 JsonRequestBehavior.AllowGet
             );
         }
 
-        public ActionResult SelectDrink(Drink a_drink)
+        public ActionResult ConfirmOrder()
+        {
+            foreach (var o in db.Drinks)
+            {
+                o.Count = Math.Max(0, o.Count - db.RunTime.SelectedDrinks.GetSelected(o.Id));
+            }
+
+            db.RunTime.SelectedCoins.Clear();
+            db.RunTime.SelectedDrinks.Clear();
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult GetAvailableDrinks()
+        {
+            ArrayList list = new ArrayList();
+            foreach(var o in db.Drinks.ToArray())
+            {
+                list.Add(new { Id = o.Id, Available = o.Value <= s_runTime.CoinsLimit && db.GetDrinkLimit(o.Id) > 0 });
+            }
+
+            return Json(
+                new
+                {
+                    List = list
+                },
+                JsonRequestBehavior.AllowGet
+            );
+        }
+
+        public ActionResult GetCoinsLimit()
+        {
+            return Content(s_runTime.CoinsLimit.ToString());
+        }
+
+        public ActionResult GetDrinkLimit(int id)
         {
             return Json(
                 new
                 {
-                    Id = a_drink.Id,
-                    Count = s_runTime.SelectedDrinks.AddItem(a_drink),
-                    Total = s_runTime.SelectedCoins.Total
+                    Id = id,
+                    Count = db.GetDrinkLimit(id)
+                },
+                JsonRequestBehavior.AllowGet
+            );
+
+        }
+
+        public ActionResult SelectDrink(String id)
+        {
+            var count = s_runTime.SelectedDrinks.AddItem(db.Drinks.First(o => o.Id.ToString() == id));
+
+            return Json(
+                new
+                {
+                    Id = id,
+                    Count = count
                 },
                 JsonRequestBehavior.AllowGet
             );
