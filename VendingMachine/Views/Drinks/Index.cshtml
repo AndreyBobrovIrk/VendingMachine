@@ -4,8 +4,6 @@
     ViewBag.Title = "Торговый автомат";
 }
 
-<header></header>
-
 <div>
     <h2>Выберите напиток:</h2>
 
@@ -30,7 +28,7 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Value)
+                    @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td id="drink_count-@item.Id.ToString()">
                     @item.Count

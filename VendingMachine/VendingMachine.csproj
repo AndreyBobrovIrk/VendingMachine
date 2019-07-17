@@ -138,6 +138,10 @@
     <Compile Include="Migrations\201907161537481_coin.Designer.cs">
       <DependentUpon>201907161537481_coin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907172024523_1.cs" />
+    <Compile Include="Migrations\201907172024523_1.Designer.cs">
+      <DependentUpon>201907172024523_1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Coin.cs" />
     <Compile Include="Models\RunTime.cs" />
@@ -188,9 +192,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Drinks\Create.cshtml" />
     <Content Include="Views\Drinks\Delete.cshtml" />
-    <Content Include="Views\Drinks\Details.cshtml" />
     <Content Include="Views\Drinks\Edit.cshtml" />
     <Content Include="Views\Drinks\Index.cshtml" />
+    <Content Include="Views\Drinks\Index_admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201907161534142_init.resx">
@@ -198,6 +202,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907161537481_coin.resx">
       <DependentUpon>201907161537481_coin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907172024523_1.resx">
+      <DependentUpon>201907172024523_1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

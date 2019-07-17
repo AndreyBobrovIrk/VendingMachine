@@ -15,7 +15,7 @@ namespace VendingMachine.Models
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
 
-        private VendingMachineContext() : base("name=VendingMachineContext")
+        public VendingMachineContext() : base("name=VendingMachineContext")
         {
 
         }

@@ -1,0 +1,72 @@
+﻿@model VendingMachine.Models.VendingMachineContext
+
+@{
+    ViewBag.Title = "Торговый автомат";
+}
+
+<div>
+    <h2>Выберите напиток:</h2>
+
+<p>
+    @Html.ActionLink("Добавить", "Create")
+</p>
+
+<table class="table">
+        <tr>
+            <th>
+                Название
+            </th>
+            <th>
+                Цена
+            </th>
+            <th>
+                Количество
+            </th>
+            <th></th>
+        </tr>
+
+@foreach (var item in Model.Drinks) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Count)
+        </td>
+        <td>
+            @Html.ActionLink("Изменить", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Удалить", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+</div>
+
+<div>
+    <h2>Вставьте монету:</h2>
+    <table class="table">
+        <tr>
+            @foreach (var o in Model.Coins)
+            {
+                <th>
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.DisplayName(o.Value.ToString()) руб.
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox">Блокировать<br>
+                            </td>
+                        </tr>
+                    </table>
+                </th>
+            }
+        </tr>
+    </table>
+</div>

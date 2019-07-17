@@ -12,9 +12,9 @@ namespace VendingMachine.Models
     {
       var drinks = new List<Drink>
             {
-                new Drink { Id = 0, Name = "Cola", Value = 30 },
-                new Drink { Id = 1, Name = "Pepsi", Value = 45 },
-                new Drink { Id = 2, Name = "Beer", Value = 100 },
+                new Drink { Id = 0, Name = "Cola", Price = 30 },
+                new Drink { Id = 1, Name = "Pepsi", Price = 45 },
+                new Drink { Id = 2, Name = "Beer", Price = 100 },
             };
       drinks.ForEach(s => context.Drinks.Add(s));
       context.SaveChanges();
