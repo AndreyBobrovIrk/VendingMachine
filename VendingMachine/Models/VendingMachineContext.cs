@@ -20,15 +20,16 @@ namespace VendingMachine.Models
 
         }
 
-        public VendingMachineContext(RunTime a_runTime)
-        {
-            RunTime = a_runTime;
-        }
-
         public System.Data.Entity.DbSet<Drink> Drinks { get; set; }
         public System.Data.Entity.DbSet<Coin> Coins { get; set; }
 
-        public RunTime RunTime { get; private set; }
+        public RunTime RunTime
+        {
+            get
+            {
+                return MvcApplication.RunTime;
+            }
+        }
 
     }
 }

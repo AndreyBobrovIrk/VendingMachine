@@ -18,17 +18,12 @@ namespace VendingMachine.Controllers
 
         }
 
-        private static RunTime s_runTime = new RunTime();
-        private VendingMachineContext db = new VendingMachineContext(s_runTime);
+        private VendingMachineContext db = new VendingMachineContext();
 
         // GET: Drinks
         public ActionResult Index()
         {
-            if (!s_runTime.IsAdmin) {
-                s_runTime.IsAdmin = Request.QueryString.ToString() == "admin";
-            }
-
-            if (s_runTime.IsAdmin)
+            if (RunTime.IsAdmin)
             {
                 return View("Index_admin", db);
             }
@@ -38,9 +33,17 @@ namespace VendingMachine.Controllers
             }
         }
 
+        public RunTime RunTime
+        {
+            get
+            {
+                return MvcApplication.RunTime;
+            }
+        }
+
         public ActionResult InsertCoin(string id)
         {
-            return Content((s_runTime.Coins += db.Coins.First(o => o.Id.ToString() == id).Value).ToString());
+            return Content((RunTime.Coins += db.Coins.First(o => o.Id.ToString() == id).Value).ToString());
         }
 
         public ActionResult GetChange()
@@ -55,7 +58,7 @@ namespace VendingMachine.Controllers
             ArrayList list = new ArrayList();
             foreach (var o in db.Drinks.ToArray())
             {
-                list.Add(new { Id = o.Id, Available = o.Price <= s_runTime.Coins && GetDrink(o.Id).Count > 0 });
+                list.Add(new { Id = o.Id, Available = o.Price <= RunTime.Coins && GetDrink(o.Id).Count > 0 });
             }
 
             return Json(
