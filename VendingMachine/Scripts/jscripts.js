@@ -13,7 +13,14 @@ function SelectDrink(data) {
 
 function UpdateAvailableDrinks(data) {
     for (i = 0; i < data.List.length; ++i) {
-        $('button#select_drink-' + data.List[i].Id).attr("disabled", !data.List[i].Available);
+        $('input#select_drink-' + data.List[i].Id).attr("disabled", !data.List[i].Available);
+    }
+}
+
+function UpdateDisabledCoins(data) {
+    for (i = 0; i < data.List.length; ++i) {
+        $('input#disable_coin-' + data.List[i].Id).attr("checked", data.List[i].Disabled);
+        $('input#insert_coin-' + data.List[i].Id).attr("disabled", data.List[i].Disabled);
     }
 }
 
@@ -33,7 +40,26 @@ function GetAvailableDrinks() {
 $(document).ready(function () {
     GetAvailableDrinks();
 
-    $("button[id |= 'select_drink']").click(
+    $.ajax({
+        type: "GET",
+        url: "/Drinks/GetDisabledCoins",
+        success: UpdateDisabledCoins
+    });
+
+    $("input[id |= 'disable_coin']").click(
+        function () {
+            $.ajax({
+                type: "GET",
+                url: "/Drinks/DisableCoin",
+                dataType: 'json',
+                contentType: 'application/json',
+                mimeType: 'application/json',
+                data: ({ id: $(this).attr('value') }),
+            });
+        }
+    )
+
+    $("input[id |= 'select_drink']").click(
         function () {
             $.ajax({
                 type: "GET",
@@ -41,13 +67,13 @@ $(document).ready(function () {
                 dataType: 'json',
                 contentType: 'application/json',
                 mimeType: 'application/json',
-                data: ({ id: $(this).attr('value') }),
+                data: ({ id: $(this).attr('name') }),
                 success: SelectDrink,
             });            
         }
     )
 
-    $("button[id |= 'insert_coin']").click(
+    $("input[id |= 'insert_coin']").click(
         function () {
             $.ajax({
                 type: "GET",
@@ -55,7 +81,7 @@ $(document).ready(function () {
                 dataType: 'json',
                 contentType: 'application/json',
                 mimeType: 'application/json',
-                data: ({ id: $(this).attr('value') }),
+                data: ({ id: $(this).attr('name') }),
                 success: InsertCoin,
             });
         }

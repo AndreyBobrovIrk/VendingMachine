@@ -37,7 +37,7 @@
                     <table>
                         <tr>
                             <th>
-                                <button disabled id="select_drink-@item.Id.ToString()" value="@item.Id.ToString()">Выбрать</button>
+                                <input type="button" value="Выбрать" name="@item.Id.ToString()" class="btn btn-default" disabled id="select_drink-@item.Id.ToString()" />
                             </th>
                         </tr>
                     </table>
@@ -63,7 +63,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <button id="insert_coin-@o.Id.ToString()" value="@o.Id.ToString()">Вставить</button>
+                                <input type="button" value="Вставить" name="@o.Id.ToString()" class="btn btn-default" disabled id="insert_coin-@o.Id.ToString()" />
                             </td>
                         </tr>
                     </table>
