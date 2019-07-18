@@ -1,4 +1,4 @@
-Проект с тестовым заданием "Автомат по продаже напитков"
+﻿Проект с тестовым заданием "Автомат по продаже напитков"
 Ссылка на github.com: https://github.com/AndreyBobrovIrk/VendingMachine
 
 Среда разработки:
@@ -6,9 +6,9 @@
   - .NET Framework 4.7.2;
   - MS SQL Express 2017;
 
-Форма клиента: \Views\Drinks\Index.cshtml
+Форма клиента:       \Views\Drinks\Index.cshtml
 форма администрации: \Views\Drinks\Index_admin.cshtml
-База данных: \App_Data\VendingMachineDB.mdf
+База данных:         \App_Data\VendingMachineDB.mdf
 
 Использование:
   - Форма клиента - по умолчанию;
