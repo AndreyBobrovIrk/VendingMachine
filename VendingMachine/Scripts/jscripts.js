@@ -26,7 +26,23 @@ function UpdateDisabledCoins(data) {
 
 function GetChange(data) {
     InsertCoin(0);
-    alert("Ваша сдача: " + data + " руб.");
+
+    var msg = "Ваша сдача: " + data + " руб\r\n";
+    var coins = [1, 2, 5, 10];
+
+    while (data > 0) {
+        var i = coins.pop();
+        var d = data / i;
+        var count = Math.trunc(d);
+        if (count == 0) {
+            continue;
+        }
+
+        msg += "  " + i + " руб. " + count + "шт.\r\n";
+        data -= count * i;
+    }
+
+    alert(msg);
 }
 
 function GetAvailableDrinks() {
