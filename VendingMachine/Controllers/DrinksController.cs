@@ -67,6 +67,38 @@ namespace VendingMachine.Controllers
             );
         }
 
+        public ActionResult DisableCoin(int id)
+        {
+            var obj = db.Coins.FirstOrDefault(o => o.Id == id);
+
+            if (obj == null)
+            {
+                throw new Exception("Object not found!");
+            }
+
+            obj.Disabled = !obj.Disabled;
+            db.SaveChanges();
+
+            return Content(String.Empty);
+        }
+
+        public ActionResult GetDisabledCoins()
+        {
+            ArrayList list = new ArrayList();
+            foreach (var o in db.Coins.ToArray())
+            {
+                list.Add(new { Id = o.Id, Disabled = o.Disabled });
+            }
+
+            return Json(
+                new
+                {
+                    List = list
+                },
+                JsonRequestBehavior.AllowGet
+            );
+        }
+
         private Drink GetDrink(int id)
         {
             var obj = db.Drinks.FirstOrDefault(o => o.Id == id);
